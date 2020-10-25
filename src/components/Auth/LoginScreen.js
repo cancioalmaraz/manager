@@ -6,7 +6,7 @@ const useStyles = makeStyles((theme) => ({
     paper: {
         display: 'inline-block',
         padding: theme.spacing(3),
-        width: '30%',
+        width: '50%',
         margin: 'auto',
     },
 
