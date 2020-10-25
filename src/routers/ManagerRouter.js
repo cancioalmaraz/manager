@@ -16,7 +16,7 @@ const ManagerRouter = () => {
       <div>
           <Switch>
               <Route exact path="/" component={ LocalBoardsScreen }/>
-              <Route exact path="/" component={ TrelloBoardsScreen }/>
+              <Route exact path="/boards/trello" component={ TrelloBoardsScreen }/>
               <Route exact path="/employees" component={ LocalEmployeesScreen }/>
               <Route exact path="/employees/trello" component={ TrelloEmployeesScreen }/>
               <Route exact path="/settings" component={ SettingsScreen }/>

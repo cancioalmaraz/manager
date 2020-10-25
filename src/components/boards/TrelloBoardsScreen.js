@@ -2,7 +2,9 @@ import React from 'react';
 
 const TrelloBoardsScreen = () => {
     return (
-        <div>
+        <div
+            className="animate__animated animate__fadeIn"
+        >
             <h1>Trello Boards</h1>
         </div>
     )

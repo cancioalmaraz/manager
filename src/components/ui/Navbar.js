@@ -18,6 +18,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import PersonIcon from '@material-ui/icons/Person';
 import SettingsIcon from '@material-ui/icons/Settings';
 import AssignmentTurnedInIcon from '@material-ui/icons/AssignmentTurnedIn';
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import {
     Switch,
     Route,
@@ -95,23 +96,27 @@ const Navbar = ({ managerRouter }) => {
     const [open, setOpen] = React.useState(false);
 
     const handleDrawerOpen = () => {
-        setOpen(true);
+      setOpen(true);
     };
 
     const handleDrawerClose = () => {
-        setOpen(false);
+      setOpen(false);
     };
 
     const openEmployees = () => {
-        history.push('/employees');
+      history.push('/employees');
     };
 
     const openBoards = () => {
-        history.push('/');
+      history.push('/');
     };
 
     const openSettings = () => {
-        history.push('/settings');
+      history.push('/settings');
+    };
+
+    const handleLogout = () => {
+      history.push('/auth/login');
     };
 
     return (
@@ -189,6 +194,15 @@ const Navbar = ({ managerRouter }) => {
                         <SettingsIcon />
                     </ListItemIcon>
                     <ListItemText primary="Settings" />
+                </ListItem>
+                <ListItem
+                    onClick={ handleLogout }
+                    button
+                >
+                    <ListItemIcon>
+                        <ExitToAppIcon />
+                    </ListItemIcon>
+                    <ListItemText primary="Logout" />
                 </ListItem>
             </List>
         </Drawer>

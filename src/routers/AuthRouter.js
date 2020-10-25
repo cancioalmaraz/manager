@@ -1,3 +1,4 @@
+import { Grid, makeStyles } from "@material-ui/core";
 import React from "react";
 import {
   Switch,
@@ -7,14 +8,27 @@ import {
 
 import LoginScreen from "../components/Auth/LoginScreen";
 
+const useStyles = makeStyles((theme) => ({
+  root: {
+    backgroundColor: '#5C62C5',
+    display: 'grid',
+    flexGrow: 1,
+    textAlign: 'center',
+    height: '100vh'
+  }
+}));
+
 const AuthRouter = () => {
+
+  const classes = useStyles();
+
   return (
-      <div>
-          <Switch>
-              <Route exact path="/auth/login" component={ LoginScreen }/>
-              <Redirect to="/auth/login" />
-          </Switch>
-      </div>
+    <Grid className={ classes.root }>
+        <Switch>
+            <Route exact path="/auth/login" component={ LoginScreen }/>
+            <Redirect to="/auth/login" />
+        </Switch>
+    </Grid>
   );
 }
 
