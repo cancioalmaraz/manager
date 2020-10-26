@@ -2,7 +2,7 @@ import { Button, Grid, makeStyles, Paper, TextField, Typography } from '@materia
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import { Link, useHistory } from 'react-router-dom';
-import { login, startGoogleLogin } from '../../actions/auth';
+import { login } from '../../actions/auth';
 
 const useStyles = makeStyles((theme) => ({
     paper: {
@@ -53,7 +53,7 @@ const useStyles = makeStyles((theme) => ({
     },
 
     googleIcon: {
-        position: 'center',
+        position: 'left',
         marginTop: '11px',
         marginLeft: '0',
         width: '18px',
@@ -61,8 +61,8 @@ const useStyles = makeStyles((theme) => ({
     },
 
     btnText: {
-        float: 'right',
-        margin: '10px 15px 0 15px',
+        position: 'center',
+        // margin: '10px 15px 0 15px',
         color: 'white',
         fontSize: '12px',
         letterSpacing: '0.2px',
@@ -81,9 +81,9 @@ const LoginScreen = () => {
         history.push('/');
     };
 
-    const handleGoogleLogin = () => {
-        dispatch( startGoogleLogin() );
-    };
+    // const handleGoogleLogin = () => {
+    //     dispatch( startGoogleLogin() );
+    // };
 
     return (
         <Paper
@@ -120,7 +120,7 @@ const LoginScreen = () => {
                         Login
                     </Button>
                 </Grid>
-                <div className={ classes.socialNetworks }>
+                {/* <div className={ classes.socialNetworks }>
                     
                     <p>Login With Social Networks</p>
                     
@@ -137,7 +137,7 @@ const LoginScreen = () => {
                             Sign in with google
                         </p>
                     </div>
-                </div>
+                </div> */}
                 {/* <Button
                     variant="contained"
                     color="default"
@@ -146,7 +146,6 @@ const LoginScreen = () => {
                 >
                     Sign in with Google
                 </Button> */}
-                <br/>
                 <Typography>
                     <Link
                         to="/auth/register"
