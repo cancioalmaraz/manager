@@ -1,6 +1,8 @@
 import { Button, Grid, makeStyles, Paper, TextField, Typography } from '@material-ui/core';
 import React from 'react';
-import { useHistory } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { Link, useHistory } from 'react-router-dom';
+import { login, startGoogleLogin } from '../../actions/auth';
 
 const useStyles = makeStyles((theme) => ({
     paper: {
@@ -16,7 +18,54 @@ const useStyles = makeStyles((theme) => ({
 
     button: {
         padding: '15px',
-        width: '55%'
+        width: '35%'
+    },
+
+    socialNetworks: {
+        alignItems: 'center',
+        display: 'flex',
+        justifyContent: 'center',
+        flexDirection: 'column',
+        paddingTop: '5px',
+        paddingBottom: '5px',
+        width: '90%'
+    },
+
+    googleIconWrapper: {
+        position: 'right',
+        marginTop: '5px',
+        marginLeft: '5px',
+        width: '35px',
+        height: '35px',
+        borderRadius: '2px',
+        backgroundColor: 'white',
+    },
+
+    googleButton: {
+        cursor: 'pointer',
+        display: 'flex',
+        marginTop: '5px',
+        width: '75%',
+        height: '42px',
+        backgroundColor: '#4285f4',
+        borderRadius: '2px',
+        boxShadow: '0 3px 4px 0 rgba(0, 0, 0, 0.25)',
+    },
+
+    googleIcon: {
+        position: 'center',
+        marginTop: '11px',
+        marginLeft: '0',
+        width: '18px',
+        height: '18px',
+    },
+
+    btnText: {
+        float: 'right',
+        margin: '10px 15px 0 15px',
+        color: 'white',
+        fontSize: '12px',
+        letterSpacing: '0.2px',
     }
 
 }));
@@ -25,10 +74,15 @@ const LoginScreen = () => {
 
     const history = useHistory();
     const classes = useStyles();
+    const dispatch = useDispatch();
 
     const handleLogin = (e) => {
-        e.preventDefault();
+        dispatch( login( 232123, 'Cancio' ) );
         history.push('/');
+    };
+
+    const handleGoogleLogin = () => {
+        dispatch( startGoogleLogin() );
     };
 
     return (
@@ -66,6 +120,40 @@ const LoginScreen = () => {
                         Login
                     </Button>
                 </Grid>
+                <div className={ classes.socialNetworks }>
+                    
+                    <p>Login With Social Networks</p>
+                    
+                    <div
+                        onClick={ handleGoogleLogin }
+                        className={ classes.googleButton }
+                    >
+                        <div className={ classes.googleIconWrapper }>
+                            <img className={ classes.googleIcon } src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg" alt="google button" />
+                        </div>
+                        <p
+                            className={ classes.btnText }
+                        >
+                            Sign in with google
+                        </p>
+                    </div>
+                </div>
+                {/* <Button
+                    variant="contained"
+                    color="default"
+                    className={classes.button}
+                    startIcon={<CloudUploadIcon />}
+                >
+                    Sign in with Google
+                </Button> */}
+                <br/>
+                <Typography>
+                    <Link
+                        to="/auth/register"
+                    >
+                        Create New Account
+                    </Link>
+                </Typography>
             </Grid>
         </Paper>
     )

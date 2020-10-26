@@ -7,6 +7,7 @@ import {
 } from "react-router-dom";
 
 import LoginScreen from "../components/Auth/LoginScreen";
+import RegisterScreen from "../components/Auth/RegisterScreen";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -26,6 +27,7 @@ const AuthRouter = () => {
     <Grid className={ classes.root }>
         <Switch>
             <Route exact path="/auth/login" component={ LoginScreen }/>
+            <Route exact path="/auth/register" component={ RegisterScreen }/>
             <Redirect to="/auth/login" />
         </Switch>
     </Grid>

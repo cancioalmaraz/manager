@@ -17,7 +17,7 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import PersonIcon from '@material-ui/icons/Person';
 import SettingsIcon from '@material-ui/icons/Settings';
-import AssignmentTurnedInIcon from '@material-ui/icons/AssignmentTurnedIn';
+import AssignmentIcon from '@material-ui/icons/Assignment';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import {
     Switch,
@@ -170,7 +170,7 @@ const Navbar = ({ managerRouter }) => {
                     button
                 >
                     <ListItemIcon>
-                        <AssignmentTurnedInIcon />
+                        <AssignmentIcon />
                     </ListItemIcon>
                     <ListItemText primary="Boards" />
                 </ListItem>
