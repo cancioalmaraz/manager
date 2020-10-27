@@ -6,6 +6,7 @@ import validator from 'validator';
 import { startRegisterWithEmailPasswordName } from '../../actions/auth';
 import { removeMessageError, setMessageError } from '../../actions/ui';
 import { useForm } from '../../hooks/useForm';
+import Swal from 'sweetalert2';
 
 const useStyles = makeStyles((theme) => ({
     paper: {
@@ -52,18 +53,34 @@ const RegisterScreen = () => {
     };
 
     const isValid = () => {
-        if ( name.length ===0 ){
-            dispatch( setMessageError('Name is required') );
-            return false;
+        let valid = true;
+        let error = '';
+        if ( name.length === 0 ){
+            error = 'Name is required';
+            dispatch( setMessageError(error) );
+            valid = false;
         } else if ( !validator.isEmail( email ) ){
-            dispatch( setMessageError('Email invalid') );
-            return false;
-        } else if ( password !== password2 || password.length < 5 ){
-            dispatch( setMessageError('Password error') );
-            return false;
+            error = 'Email invalid';
+            dispatch( setMessageError(error) );
+            valid = false;
+        } else if ( password !== password2){
+            error = 'Passwords must be the same';
+            dispatch( setMessageError(error) );
+            valid = false;
+        } else if( password.length < 6){
+            error = 'Password should be at least 6 characters';
+            dispatch( setMessageError(error) );
+            valid = false;
+        }
+        if (!valid){
+            Swal.fire(
+                'Error',
+                error,
+                'error'
+            );
         }
         dispatch( removeMessageError() );
-        return true;
+        return valid;
     };
 
     return (
