@@ -1,5 +1,5 @@
 import { Button, CircularProgress, Grid, makeStyles, Paper, TextField, Typography } from '@material-ui/core';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import validator from 'validator';
@@ -74,14 +74,18 @@ const RegisterScreen = () => {
         return valid;
     };
 
-    if (msgError){
-        Swal.fire(
-            'Error',
-            msgError,
-            'error'
-        );
-        dispatch( removeMessageError() );
-    }
+    useEffect(() => {
+        if (msgError){
+            Swal.fire(
+                'Error',
+                msgError,
+                'error'
+            );
+        }
+        return () => {
+            dispatch( removeMessageError() );
+        };
+    }, [ dispatch, msgError ]);
 
     return (
         <Paper
