@@ -1,21 +1,61 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   BrowserRouter as Router,
   Switch,
-  Route
+  Redirect
 } from "react-router-dom";
 
 import Navbar from "../components/ui/Navbar";
 import ManagerRouter from "./ManagerRouter";
 import AuthRouter from "./AuthRouter";
+import { useDispatch } from "react-redux";
+import { firebase } from '../firebase/firebase-config';
+import { login } from '../actions/auth';
+import PrivateRoute from './PrivateRoute';
+import PublicRoute from './PublicRoute';
 
 const AppRouter = () => {
+
+  const dispatch = useDispatch();
+  const [checking, setChecking] = useState(true);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  useEffect(()=>{
+    firebase.auth().onAuthStateChanged( user => {
+      if ( user?.uid ){
+        dispatch( login( user.uid, user.displayName ) );
+        setIsLoggedIn( true );
+      } else {
+        setIsLoggedIn( false );
+      }
+      setChecking( false );
+    });
+  }, [ dispatch ]);
+
+  if ( checking ){
+    return (<h1>Revisando Logueo...</h1>);
+  }
+
   return (
     <Router>
         <div>
             <Switch>
-                <Route path="/auth" component={ AuthRouter } />
-                <Navbar managerRouter={ ManagerRouter }/>
+
+                <PublicRoute
+                    isAuthenticate={ isLoggedIn }
+                    path="/auth"
+                    component={ AuthRouter }
+                />
+
+                <PrivateRoute
+                    isAuthenticate={ isLoggedIn }
+                    path="/"
+                    component={ Navbar }
+                    managerRouter={ ManagerRouter }
+                />
+
+                <Redirect to="/auth/login" />
+
             </Switch>
         </div>
     </Router>

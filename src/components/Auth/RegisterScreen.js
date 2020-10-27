@@ -1,49 +1,54 @@
-import { Button, Grid, makeStyles, Paper, TextField, Typography } from '@material-ui/core';
+import { Button, CircularProgress, Grid, makeStyles, Paper, TextField, Typography } from '@material-ui/core';
 import React from 'react';
-import { useDispatch } from 'react-redux';
-import { Link, useHistory } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 import validator from 'validator';
 import { startRegisterWithEmailPasswordName } from '../../actions/auth';
 import { removeMessageError, setMessageError } from '../../actions/ui';
 import { useForm } from '../../hooks/useForm';
-// import { login } from '../../actions/auth';
 
 const useStyles = makeStyles((theme) => ({
     paper: {
         display: 'inline-block',
         padding: theme.spacing(3),
-        width: '50%',
+        width: '250px',
         margin: 'auto',
     },
 
     field: {
-        padding: '15px'
+        paddingBottom: '10px',
+        width: '90%'
     },
 
     button: {
         padding: '15px',
-        width: '50%'
-    }
+        margin: '10px 0 15px 0',
+        width: '90%',
+        height: '35px'
+    },
 
+    loader: {
+        marginRight: '15px'
+    }
 }));
 
 const RegisterScreen = () => {
 
-    const history = useHistory();
     const classes = useStyles();
     const dispatch = useDispatch();
+    const { loading } = useSelector(state => state.ui);
     const [ { name, email, password, password2 }, handleInputChange ] = useForm({
-        name: 'David',
-        email: 'david@gmail.com',
-        password: '123456',
-        password2: '123456'
+        name: '',
+        email: '',
+        password: '',
+        password2: ''
     });
 
     const handleRegister = (e) => {
+        e.preventDefault();
         if ( isValid() ){
             dispatch( startRegisterWithEmailPasswordName(email, password, name) );
         }
-        history.push('/');
     };
 
     const isValid = () => {
@@ -70,27 +75,29 @@ const RegisterScreen = () => {
                 justify="center"
                 alignItems="center"
             >
-                <Typography variant="h4" >Register</Typography>
-                <Grid className={ classes.field } >
+                <Typography variant="h4" >Register</Typography><br/>
+
+                <form
+                    onSubmit={ handleRegister }
+                >
                     <TextField
+                        className={ classes.field }
                         name="name"
                         label="Name"
                         autoComplete="off"
                         value={ name }
                         onChange={ handleInputChange }
                     />
-                </Grid>
-                <Grid className={ classes.field } >
                     <TextField
+                        className={ classes.field }
                         name="email"
                         label="Email"
                         autoComplete="off"
                         value={ email }
                         onChange={ handleInputChange }
                     />
-                </Grid>
-                <Grid className={ classes.field } >
                     <TextField
+                        className={ classes.field }
                         name="password"
                         label="Password"
                         type="password"
@@ -98,9 +105,8 @@ const RegisterScreen = () => {
                         value={ password }
                         onChange={ handleInputChange }
                     />
-                </Grid>
-                <Grid className={ classes.field } >
                     <TextField
+                        className={ classes.field }
                         name="password2"
                         label="Confirm Password"
                         type="password"
@@ -108,17 +114,25 @@ const RegisterScreen = () => {
                         value={ password2 }
                         onChange={ handleInputChange }
                     />
-                </Grid>
-                <Grid className={ classes.button } >
                     <Button
+                        type="submit"
+                        className={ classes.button }
                         variant="contained"
                         color="primary"
-                        fullWidth={ true }
-                        onClick={ handleRegister }
+                        disabled={ loading }
                     >
+                        {
+                            loading
+                            &&
+                            <CircularProgress
+                                className={ classes.loader }
+                                size={18}
+                            />
+                        }
                         Register
                     </Button>
-                </Grid>
+                </form>
+                
                 <Typography>
                     <Link
                         to="/auth/login"

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import clsx from 'clsx';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
@@ -24,6 +24,9 @@ import {
     Route,
     useHistory
 } from "react-router-dom";
+import { useDispatch, useSelector } from 'react-redux';
+import { startLogout } from '../../actions/auth';
+import AccountBoxIcon from '@material-ui/icons/AccountBox';
 
 const drawerWidth = 240;
 
@@ -93,7 +96,10 @@ const Navbar = ({ managerRouter }) => {
     const history = useHistory();
     const classes = useStyles();
     const theme = useTheme();
-    const [open, setOpen] = React.useState(false);
+    const [open, setOpen] = useState(false);
+    const { name } = useSelector(state => state.auth);
+
+    const dispatch = useDispatch();
 
     const handleDrawerOpen = () => {
       setOpen(true);
@@ -103,12 +109,12 @@ const Navbar = ({ managerRouter }) => {
       setOpen(false);
     };
 
-    const openEmployees = () => {
-      history.push('/employees');
-    };
-
     const openBoards = () => {
       history.push('/');
+    };
+
+    const openEmployees = () => {
+      history.push('/employees');
     };
 
     const openSettings = () => {
@@ -116,7 +122,7 @@ const Navbar = ({ managerRouter }) => {
     };
 
     const handleLogout = () => {
-      history.push('/auth/login');
+      dispatch( startLogout() );
     };
 
     return (
@@ -165,6 +171,15 @@ const Navbar = ({ managerRouter }) => {
             </div>
             <Divider />
             <List>
+                <ListItem
+                    button
+                >
+                    <ListItemIcon>
+                        <AccountBoxIcon />
+                    </ListItemIcon>
+                    <ListItemText primary={ `User Name: ${ name }` } />
+                </ListItem>
+                <Divider />
                 <ListItem
                     onClick={ openBoards }
                     button
