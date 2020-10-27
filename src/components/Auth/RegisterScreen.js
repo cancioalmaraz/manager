@@ -57,29 +57,27 @@ const RegisterScreen = () => {
         let error = '';
         if ( name.length === 0 ){
             error = 'Name is required';
-            dispatch( setMessageError(error) );
             valid = false;
         } else if ( !validator.isEmail( email ) ){
             error = 'Email invalid';
-            dispatch( setMessageError(error) );
             valid = false;
         } else if ( password !== password2){
             error = 'Passwords must be the same';
-            dispatch( setMessageError(error) );
             valid = false;
         } else if( password.length < 6){
             error = 'Password should be at least 6 characters';
-            dispatch( setMessageError(error) );
             valid = false;
         }
         if (!valid){
+            dispatch( setMessageError(error) );
             Swal.fire(
                 'Error',
                 error,
                 'error'
             );
+        } else {
+            dispatch( removeMessageError() );
         }
-        dispatch( removeMessageError() );
         return valid;
     };
 
