@@ -37,7 +37,7 @@ const RegisterScreen = () => {
 
     const classes = useStyles();
     const dispatch = useDispatch();
-    const { loading } = useSelector(state => state.ui);
+    const { loading, msgError } = useSelector(state => state.ui);
     const [ { name, email, password, password2 }, handleInputChange ] = useForm({
         name: '',
         email: '',
@@ -53,33 +53,35 @@ const RegisterScreen = () => {
     };
 
     const isValid = () => {
-        let valid = true;
+        let valid = false;
         let error = '';
         if ( name.length === 0 ){
             error = 'Name is required';
-            valid = false;
         } else if ( !validator.isEmail( email ) ){
             error = 'Email invalid';
-            valid = false;
         } else if ( password !== password2){
             error = 'Passwords must be the same';
-            valid = false;
         } else if( password.length < 6){
             error = 'Password should be at least 6 characters';
-            valid = false;
+        } else {
+            valid = true;
         }
         if (!valid){
             dispatch( setMessageError(error) );
-            Swal.fire(
-                'Error',
-                error,
-                'error'
-            );
         } else {
             dispatch( removeMessageError() );
         }
         return valid;
     };
+
+    if (msgError){
+        Swal.fire(
+            'Error',
+            msgError,
+            'error'
+        );
+        dispatch( removeMessageError() );
+    }
 
     return (
         <Paper
