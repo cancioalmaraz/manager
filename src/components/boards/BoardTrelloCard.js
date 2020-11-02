@@ -8,16 +8,21 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const BoardCard = ({ board }) => {
-
+const BoardTrelloCard = ({ name }) => {
     const classes = useStyles();
+
+    const handleClickCard = () => {
+        console.log('Click Card Trello Board');
+    };
 
     return (
         <div className={classes.content}>
             <Card>
-                <CardActionArea>
+                <CardActionArea
+                    onClick={ handleClickCard }
+                >
                     <CardContent>
-                        <Typography ><strong>Tablero { board }</strong></Typography>
+                        <Typography>{ name }</Typography>
                     </CardContent>
                 </CardActionArea>
             </Card>
@@ -25,4 +30,4 @@ const BoardCard = ({ board }) => {
     )
 }
 
-export default BoardCard;
+export default BoardTrelloCard

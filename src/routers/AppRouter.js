@@ -11,6 +11,7 @@ import AuthRouter from "./AuthRouter";
 import { useDispatch } from "react-redux";
 import { firebase } from '../firebase/firebase-config';
 import { login } from '../actions/auth';
+import { startLoadEmployees } from '../actions/employee';
 import PrivateRoute from './PrivateRoute';
 import PublicRoute from './PublicRoute';
 
@@ -25,6 +26,7 @@ const AppRouter = () => {
       if ( user?.uid ){
         dispatch( login( user.uid, user.displayName ) );
         setIsLoggedIn( true );
+        dispatch( startLoadEmployees() );
       } else {
         setIsLoggedIn( false );
       }

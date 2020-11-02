@@ -8,16 +8,22 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const BoardCard = ({ board }) => {
+const LocalEmployeeCard = ({ fullName, trello_id }) => {
 
     const classes = useStyles();
+
+    const handleClickCard = () => {
+        console.log("A dashBoard");
+    };
 
     return (
         <div className={classes.content}>
             <Card>
-                <CardActionArea>
+                <CardActionArea
+                    onClick={ handleClickCard }
+                >
                     <CardContent>
-                        <Typography ><strong>Tablero { board }</strong></Typography>
+                        <Typography>{ fullName }</Typography>
                     </CardContent>
                 </CardActionArea>
             </Card>
@@ -25,4 +31,4 @@ const BoardCard = ({ board }) => {
     )
 }
 
-export default BoardCard;
+export default LocalEmployeeCard;

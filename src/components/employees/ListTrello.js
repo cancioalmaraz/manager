@@ -1,27 +1,27 @@
 import { makeStyles } from '@material-ui/core';
 import React from 'react';
-import BoardCard from './BoardCard';
+import CardTrello from './CardTrello';
 
 const useStyles = makeStyles((theme) => ({
-    boardList: {
+    employeeList: {
         display: 'flex',
         flexWrap: 'wrap'
     }
 }));
 
-const BoardList = ({ boardList = [] }) => {
+const ListTrello = ({ employees = [] }) => {
 
     const classes = useStyles();
 
     return (
-        <div className={ classes.boardList }>
+        <div className={ classes.employeeList }>
             {
-                boardList.map( board => (
-                    <BoardCard  key={ board } board={ board }/>
+                employees.map((employee)=>(
+                    <CardTrello key={ employee.id } { ...employee }/>
                 ))
             }
         </div>
     )
 }
 
-export default BoardList;
+export default ListTrello;

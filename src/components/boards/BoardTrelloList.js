@@ -1,6 +1,6 @@
-import { makeStyles } from '@material-ui/core';
 import React from 'react';
-import BoardCard from './BoardCard';
+import { makeStyles } from '@material-ui/core';
+import BoardTrelloCard from './BoardTrelloCard';
 
 const useStyles = makeStyles((theme) => ({
     boardList: {
@@ -9,19 +9,19 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-const BoardList = ({ boardList = [] }) => {
+const BoardTrelloList = ({ boards = [] }) => {
 
     const classes = useStyles();
 
     return (
         <div className={ classes.boardList }>
             {
-                boardList.map( board => (
-                    <BoardCard  key={ board } board={ board }/>
+                boards.map((board)=>(
+                    <BoardTrelloCard key={ board.id } { ...board } />
                 ))
             }
         </div>
     )
 }
 
-export default BoardList;
+export default BoardTrelloList;
