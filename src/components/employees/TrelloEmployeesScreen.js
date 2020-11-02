@@ -8,11 +8,11 @@ const TrelloEmployeesScreen = () => {
 
     const [list, setList] = useState([]);
     const [loading, setLoading] = useState(true);
-    const { employees } = useSelector(state => state.employee);
+    const { employee:{ employees }, ui:{ loading: loadingEmployees } } = useSelector(state => state);
     const isMounted = useRef(true);
 
     useEffect(()=>{
-        if( isMounted.current ){
+        if ( !loadingEmployees ){
             const employeesService = new EmployeeService();
             employeesService.getEmployeesTrello()
                 .then(({ data })=>{
@@ -28,7 +28,7 @@ const TrelloEmployeesScreen = () => {
         return ()=>{
             isMounted.current = false;
         };
-    }, [employees]);
+    }, [employees, loadingEmployees]);
 
     return (
         <div

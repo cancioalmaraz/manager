@@ -7,6 +7,7 @@ import {
 
 import LocalBoardsScreen from "../components/boards/LocalBoardsScreen";
 import TrelloBoardsScreen from "../components/boards/TrelloBoardsScreen";
+import EmployeeDashboard from "../components/employees/EmployeeDashboard";
 import LocalEmployeesScreen from "../components/employees/LocalEmployeesScreen";
 import TrelloEmployeesScreen from "../components/employees/TrelloEmployeesScreen";
 import SettingsScreen from "../components/settings/SettingsScreen";
@@ -18,6 +19,7 @@ const ManagerRouter = () => {
         <Route exact path="/boards/trello" component={ TrelloBoardsScreen }/>
         <Route exact path="/employees" component={ LocalEmployeesScreen }/>
         <Route exact path="/employees/trello" component={ TrelloEmployeesScreen }/>
+        <Route exact path="/employees/:id" component={ EmployeeDashboard }/>
         <Route exact path="/settings" component={ SettingsScreen }/>
         <Redirect to="/" />
     </Switch>

@@ -1,5 +1,6 @@
 import React from 'react';
 import { Card, CardActionArea, CardContent, makeStyles, Typography } from '@material-ui/core';
+import { useHistory } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
     content: {
@@ -8,12 +9,13 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const LocalEmployeeCard = ({ fullName, trello_id }) => {
+const LocalEmployeeCard = ({ fullName, id }) => {
 
     const classes = useStyles();
+    const history = useHistory();
 
     const handleClickCard = () => {
-        console.log("A dashBoard");
+        history.push(`/employees/${ id }`);
     };
 
     return (

@@ -13,7 +13,10 @@ const employeeReducer = (state = initialState, action) => {
             };
         case types.employeeAdd:
             return {
-                employees: [ ...state.employees , action.payload ]
+                employees: [...state.employees , {
+                    id: action.payload.id,
+                    ...action.payload.newEmployee
+                }]
             };
         case types.employeeCleaningLogout:
             return {
